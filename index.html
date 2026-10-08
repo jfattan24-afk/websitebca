@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Sayang 💕</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fbc2eb 100%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Container utama */
+  .card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 45px 35px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(255, 105, 150, 0.35);
+    text-align: center;
+    max-width: 480px;
+    width: 90%;
+    z-index: 10;
+    animation: masuk 1.2s ease-out;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+  }
+
+  @keyframes masuk {
+    from { opacity: 0; transform: translateY(40px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .heart-big {
+    font-size: 70px;
+    animation: detak 1s infinite;
+    display: inline-block;
+  }
+
+  @keyframes detak {
+    0%, 100% { transform: scale(1); }
+    25%      { transform: scale(1.15); }
+    50%      { transform: scale(1); }
+    75%      { transform: scale(1.1); }
+  }
+
+  h1 {
+    color: #e91e63;
+    font-size: 2em;
+    margin: 15px 0;
+    font-weight: 700;
+  }
+
+  #pesan {
+    color: #666;
+    font-size: 1.1em;
+    min-height: 60px;
+    line-height: 1.6;
+    margin: 20px 0;
+    font-style: italic;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    background: #e91e63;
+    animation: kedip 0.7s infinite;
+  }
+
+  @keyframes kedip {
+    50% { opacity: 0; }
+  }
+
+  button {
+    background: linear-gradient(135deg, #ff6b9d, #e91e63);
+    color: white;
+    border: none;
+    padding: 14px 38px;
+    border-radius: 50px;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(233, 30, 99, 0.55);
+  }
+
+  button:active { transform: translateY(0) scale(0.98); }
+
+  /* Hati berjatuhan */
+  .hati {
+    position: fixed;
+    top: -50px;
+    color: #ff4d79;
+    font-size: 22px;
+    animation: jatuh linear infinite;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  @keyframes jatuh {
+    0%   { transform: translateY(0) rotate(0deg);      opacity: 0; }
+    10%  { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* Efek love muncul saat klik */
+  .love-pop {
+    position: fixed;
+    font-size: 30px;
+    pointer-events: none;
+    animation: pop 1s ease-out forwards;
+    z-index: 999;
+  }
+
+  @keyframes pop {
+    0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(-50%, -150%) scale(1.8); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="heart-big">💖</div>
+    <h1>Hai, Sayang!</h1>
+    <p id="pesan"></p>
+    <button onclick="kejutan()">Klik Aku 💌</button>
+  </div>
+
+<script>
+  // === Pesan bergantian ===
+  const pesanList = [
+    "Kamu adalah alasan aku tersenyum setiap hari...",
+    "Terima kasih sudah ada di hidupku. 🌷",
+    "Aku sayang kamu, hari ini dan selamanya. 💕",
+    "Kamu lebih indah dari ribuan bintang di langit. ✨",
+    "Tetap jadi kamu ya, karena kamu sempurna bagiku. 💖"
+  ];
+
+  let idx = 0, charIdx = 0, hapus = false;
+  const el = document.getElementById('pesan');
+
+  function ketik() {
+    const teks = pesanList[idx];
+
+    if (!hapus) {
+      el.innerHTML = teks.substring(0, ++charIdx) + '<span class="cursor">&nbsp;</span>';
+      if (charIdx === teks.length) {
+        hapus = true;
+        setTimeout(ketik, 1800);
+        return;
+      }
+    } else {
+      el.innerHTML = teks.substring(0, --charIdx) + '<span class="cursor">&nbsp;</span>';
+      if (charIdx === 0) {
+        hapus = false;
+        idx = (idx + 1) % pesanList.length;
+      }
+    }
+    setTimeout(ketik, hapus ? 35 : 70);
+  }
+  ketik();
+
+  // === Hati berjatuhan ===
+  const emojis = ['💕','💖','💗','💓','❤️','🌹','💘'];
+  function buatHati() {
+    const h = document.createElement('div');
+    h.className = 'hati';
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.fontSize = (16 + Math.random() * 22) + 'px';
+    h.style.animationDuration = (5 + Math.random() * 5) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 10000);
+  }
+  setInterval(buatHati, 350);
+
+  // === Efek klik ===
+  function kejutan() {
+    const pesanKejutan = [
+      "Aku cinta kamu! ❤️",
+      "Kamu cantik/ganteng hari ini! 😍",
+      "Jangan lupa bahagia ya! 🌸",
+      "Peluk virtual untukmu 🤗",
+      "Kamu berharga! 💎"
+    ];
+    alert(pesanKejutan[Math.floor(Math.random() * pesanKejutan.length)]);
+
+    // Ledakan hati
+    for (let i = 0; i < 15; i++) {
+      setTimeout(() => {
+        const p = document.createElement('div');
+        p.className = 'love-pop';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = (window.innerWidth / 2 + (Math.random() - 0.5) * 300) + 'px';
+        p.style.top = (window.innerHeight / 2) + 'px';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1000);
+      }, i * 60);
+    }
+  }
+
+  // Efek klik di mana saja
+  document.addEventListener('click', (e) => {
+    const p = document.createElement('div');
+    p.className = 'love-pop';
+    p.textContent = '💖';
+    p.style.left = e.clientX + 'px';
+    p.style.top = e.clientY + 'px';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  });
+</script>
+
+</body>
+</html>
